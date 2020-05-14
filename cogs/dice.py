@@ -159,9 +159,8 @@ class Games(commands.Cog):
                     else:
                         data += dice_r[i][d][0]
                 sum = 0
-                for r in dice_r[i]:
-                    for d in r:
-                        sum += d[1]
+                for d in range(len(dice_r[i])):
+                    sum += dice_r[i][d][1]
                 embed.add_field(name=f"Throw number {i+1}:", value=f"{data}\n= {sum}", inline=False)
 
             await ctx.send(embed=embed)
