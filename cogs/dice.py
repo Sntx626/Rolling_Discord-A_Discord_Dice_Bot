@@ -150,9 +150,9 @@ class Games(commands.Cog):
                 data = ''
                 for d in range(dice_r[i]):
                     if d < len(dice_r)-1:
-                        data += dice_r[d] + ',\n'
+                        data += dice_r[i][d] + ',\n'
                     else:
-                        data += dice_r[d]
+                        data += dice_r[i][d]
                 embed.add_field(name=f"Throw number {i}:", value=f"{data}", inline=False)
 
             await ctx.send(embed=embed)
