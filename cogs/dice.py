@@ -135,6 +135,7 @@ class Games(commands.Cog):
             data = ''
             for d in dice_r[0]:
                 data += d[0] + '\n'
+            sum = 0
             for d in range(len(dice_r[i])):
                 for v in dice_r[i][d][1]:
                     sum += v
