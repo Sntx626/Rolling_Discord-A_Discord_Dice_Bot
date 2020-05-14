@@ -153,7 +153,7 @@ class Games(commands.Cog):
                         data += dice_r[i][d] + ',\n'
                     else:
                         data += dice_r[i][d]
-                embed.add_field(name=f"Throw number {i}:", value=f"{data}", inline=False)
+                embed.add_field(name=f"Throw number {i+1}:", value=f"{data}", inline=False)
 
             await ctx.send(embed=embed)
             tools.print_bot(f"Dice thrown!", name, 'roll', input)
