@@ -66,7 +66,11 @@ def throw_dice(dice, eyes, mod): # returns a string as a result
         for i in range(dice[d]):
             rnd = random.randint(1, eyes[d])
             data.append(rnd)
-        out += f'{data}/{eyes[d]}\t\t' #+ f' {mod[d]}'
+            if i < len(dice[d])-1:
+                tab = '\n\t'
+            else:
+                tab = ''
+        out += f'{data}/{eyes[d]}' + tab #+ f' {mod[d]}'
     return out # return result string
 
 class Games(commands.Cog):
