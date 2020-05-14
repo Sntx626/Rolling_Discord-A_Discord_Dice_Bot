@@ -132,7 +132,7 @@ class Games(commands.Cog):
             for d in dice_r[0]:
                 data += d + '\n'
             embed = discord.Embed(
-                title = ''
+                title = '',
                 description = f'{data}',
                 colour = discord.Colour.blue()
             )
