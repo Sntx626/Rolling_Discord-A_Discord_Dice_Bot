@@ -135,9 +135,12 @@ class Games(commands.Cog):
             data = ''
             for d in dice_r[0]:
                 data += d[0] + '\n'
+            for d in range(len(dice_r[i])):
+                for v in dice_r[i][d][1]:
+                    sum += v
             embed = discord.Embed(
                 title = '',
-                description = f'{data}',
+                description = f'{data}\n= {sum}',
                 colour = discord.Colour.blue()
             )
             embed.set_author(name=f'{name}', icon_url=f'{ctx.author.avatar_url}')
