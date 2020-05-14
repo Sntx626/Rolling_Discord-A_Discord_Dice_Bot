@@ -66,7 +66,7 @@ def throw_dice(dice, eyes, mod): # returns a string as a result
         for i in range(dice[d]):
             rnd = random.randint(1, eyes[d])
             data.append(rnd)
-            if i < len(dice[d])-1:
+            if i < len(dice)-1:
                 tab = '\n\t'
             else:
                 tab = ''
