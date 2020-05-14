@@ -104,16 +104,16 @@ class Games(commands.Cog):
         dice_r = []
         for d in dice:
             d = d.strip()
-            print("dice:", d)
+            #print("dice:", d)
 
             g_throws = get_throws(d) # number
-            print(f"get_throws({d}):{g_throws}")
+            #print(f"get_throws({d}):{g_throws}")
             g_dice = get_dice(d) # list
-            print(f"get_dice({d}):{g_dice}")
+            #print(f"get_dice({d}):{g_dice}")
             g_eyes = get_eyes(d) # list
-            print(f"get_eyes({d}):{g_eyes}")
+            #print(f"get_eyes({d}):{g_eyes}")
             g_mod = get_mod(d) # list
-            print(f"get_mod({d}):{g_mod}")
+            #print(f"get_mod({d}):{g_mod}")
             try:
                 pass # check needed values
             except:
