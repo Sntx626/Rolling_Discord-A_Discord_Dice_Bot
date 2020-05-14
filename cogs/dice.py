@@ -71,7 +71,7 @@ def throw_dice(dice, eyes, mod): # returns a string as a result
             else:
                 tab = ''
         out += f'{data}/{eyes[d]}' + tab #+ f' {mod[d]}'
-    return out # return result string
+    return [out, data] # return result string
 
 class Games(commands.Cog):
 
@@ -133,7 +133,7 @@ class Games(commands.Cog):
 
         if len(dice_r) == 1:
             data = ''
-            for d in dice_r[0]:
+            for d in dice_r[0][0]:
                 data += d + '\n'
             embed = discord.Embed(
                 title = '',
@@ -153,11 +153,11 @@ class Games(commands.Cog):
 
             for i in range(len(dice_r)):
                 data = ''
-                for d in range(len(dice_r[i])):
-                    if d < len(dice_r[i])-1:
-                        data += dice_r[i][d] + ',\n'
+                for d in range(len(dice_r[0][i])):
+                    if d < len([dice_r[0]][i])-1:
+                        data += dice_r[0][i][d] + ',\n'
                     else:
-                        data += dice_r[i][d]
+                        data += dice_r[0][i][d]
                 embed.add_field(name=f"Throw number {i+1}:", value=f"{data}", inline=False)
 
             await ctx.send(embed=embed)
