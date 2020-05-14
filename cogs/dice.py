@@ -66,7 +66,7 @@ def throw_dice(dice, eyes, mod): # returns a string as a result
         for i in range(dice[d]):
             rnd = random.randint(1, eyes[d])
             data.append(rnd)
-        out += f'{data}/{eyes[d]}, ' #+ f' {mod[d]}'
+        out += f'{data}/{eyes[d]}' #+ f' {mod[d]}'
     return out # return result string
 
 class Games(commands.Cog):
@@ -148,8 +148,11 @@ class Games(commands.Cog):
 
             for i in range(len(dice_r)):
                 data = ''
-                for d in dice_r[i]:
-                    data += d + '\n'
+                for d in range(dice_r[i]):
+                    if d < len(dice_r):
+                        data += dice_r[d] + ',\n'
+                    else:
+                        data += dice_r[d]
                 embed.add_field(name=f"Throw number {i}:", value=f"{data}", inline=False)
 
             await ctx.send(embed=embed)
