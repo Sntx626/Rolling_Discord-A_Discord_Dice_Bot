@@ -136,10 +136,9 @@ class Games(commands.Cog):
             for d in dice_r[0]:
                 data += d[0] + '\n'
             sum = 0
-            for i in range(len(dice_r)):
-                for d in range(len(dice_r[i])):
-                    for v in dice_r[i][d][1]:
-                        sum += v
+            for d in range(len(dice_r[0])):
+                for v in dice_r[0][d]:
+                    sum += v[1]
             embed = discord.Embed(
                 title = '',
                 description = f'{data}= {sum}',
@@ -165,8 +164,8 @@ class Games(commands.Cog):
                         data += dice_r[i][d][0]
                 sum = 0
                 for d in range(len(dice_r[i])):
-                    for v in dice_r[i][d][1]:
-                        sum += v
+                    for v in dice_r[i][d]:
+                        sum += v[1]
                 embed.add_field(name=f"Throw number {i+1}:", value=f"{data}\n= {sum}", inline=False)
 
             await ctx.send(embed=embed)
