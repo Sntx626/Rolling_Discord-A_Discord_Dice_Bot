@@ -133,7 +133,7 @@ class Games(commands.Cog):
 
         if len(dice_r) == 1:
             data = ''
-            for d in dice_r[0][0]:
+            for d in dice_r[0]:
                 data += d[0] + '\n'
             embed = discord.Embed(
                 title = '',
