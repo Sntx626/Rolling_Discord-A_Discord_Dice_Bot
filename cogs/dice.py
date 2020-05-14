@@ -132,7 +132,8 @@ class Games(commands.Cog):
             for d in dice_r[0]:
                 data += d + '\n'
             embed = discord.Embed(
-                description = f"{data}",
+                title = ''
+                description = f'{data}',
                 colour = discord.Colour.blue()
             )
             embed.set_author(name=f'{name}', icon_url=f'{ctx.author.avatar_url}')
@@ -141,7 +142,7 @@ class Games(commands.Cog):
             tools.print_bot(f"Dice thrown!", name, 'roll', input)
         else:
             embed = discord.Embed(
-                description = "Rolled:",
+                description = 'Rolled:',
                 colour = discord.Colour.blue()
             )
             embed.set_author(name=f'{name}', icon_url=f'{ctx.author.avatar_url}')
@@ -156,7 +157,7 @@ class Games(commands.Cog):
                 embed.add_field(name=f"Throw number {i+1}:", value=f"{data}", inline=False)
 
             await ctx.send(embed=embed)
-            tools.print_bot(f"Dice thrown!", name, 'roll', input)
+            tools.print_bot(f'Dice thrown!', name, 'roll', input)
 
 ##### finalize and run #####
 

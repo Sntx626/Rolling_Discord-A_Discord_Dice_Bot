@@ -6,15 +6,17 @@ with open("config.json") as f:
     command_prefix = config["command prefix"]
     name_suffix = config["results suffix"]
 
-with open("logs/results_"+ name_suffix +".json") as f:
-    results = json.load(f)
+if config["logging enabled"]:
+    with open("logs/results_"+ name_suffix +".json") as f:
+        results = json.load(f)
 
 def print_on_command_call(ctx_author, command_name, input):
     print(f"\n{ctx_author} '{command_prefix}{command_name} {input}':")
 
 def print_bot(output, ctx_author, command_name, input):
     print(output)
-    #add_results_entry(f"\n{ctx_author} '{command_prefix}{command_name} {input}':", output)
+    if config["logging enabled"]:
+        add_results_entry(f"\n{ctx_author} '{command_prefix}{command_name} {input}':", output)
 
 def add_results_entry(input, output):
     with open("logs/results_"+name_suffix+".json") as f:
