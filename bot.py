@@ -21,11 +21,12 @@ config["results suffix"] = datetime.datetime.now().strftime("%f")
 with open("config.json", 'w') as f:
     json.dump(config, f, indent=2)
 
-with open("logs/base_results.json") as f:
-    base_results = json.load(f)
+if config["logging enabled"]:
+    with open("logs/base_results.json") as f:
+        base_results = json.load(f)
 
-with open("logs/results_"+ config["results suffix"] +".json", 'w') as f:
-    json.dump(base_results, f, indent=2)
+    with open("logs/results_"+ config["results suffix"] +".json", 'w') as f:
+        json.dump(base_results, f, indent=2)
 
 import tools
 
