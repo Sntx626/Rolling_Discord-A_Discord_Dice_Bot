@@ -137,6 +137,7 @@ class Games(commands.Cog):
                 data += d[0] + '\n'
             sum = 0
             for d in range(len(dice_r[0])):
+                print(dice_r[d])
                 for v in dice_r[0][d][1]:
                     sum += v
             embed = discord.Embed(
