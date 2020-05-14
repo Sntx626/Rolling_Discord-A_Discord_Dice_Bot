@@ -41,3 +41,7 @@ cd ~/Rolling_Discord-A_Discord_Dice_Bot
 sudo python3 -m pip install -U pip
 sudo python3 -m pip install -U -r requirements.txt
 ```
+
+### Additional Information
+I do not own the image "dd-dice-512.png" in the folder additional stuff.
+The Install Guide pretty much is a copy of the install Guide from [This nice music bot](https://just-some-bots.github.io/MusicBot/).
