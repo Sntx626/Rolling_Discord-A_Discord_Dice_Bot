@@ -153,8 +153,8 @@ class Games(commands.Cog):
 
             for i in range(len(dice_r)):
                 data = ''
-                for d in range(len(dice_r[i][0])):
-                    if d < len(dice_r[i][0])-1:
+                for d in range(len(dice_r[i])):
+                    if d < len(dice_r[i])-1:
                         data += dice_r[i][0][d] + ',\n'
                     else:
                         data += dice_r[i][0][d]
