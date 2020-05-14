@@ -29,5 +29,5 @@ def add_results_entry(input, output):
     }
 
     data.append(result)
-    with open("results/results_"+name_suffix+".json", 'w') as f:
+    with open("logs/results_"+name_suffix+".json", 'w') as f:
         json.dump(data, f, indent=2)
