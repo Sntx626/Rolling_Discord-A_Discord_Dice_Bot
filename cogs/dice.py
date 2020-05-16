@@ -59,6 +59,17 @@ def get_mod(dice): # returns a list of modifier for the dice that are thrown
     except:
         raise ValueError(f'Error in get_mod({dice})')
 
+def get_name(dice):
+    try:
+        pattern = re.compile(r'\"(.{0,})\"')
+        matches = pattern.finditer(dice)
+        out = ''
+        for match in matches:
+            out += match.group(1)
+        return out
+    except:
+        raise ValueError(f'Error in get_eyes({dice})')
+
 def throw_dice(dice, eyes, mod): # returns a string as a result
     out = ''
     sum = 0
@@ -90,11 +101,14 @@ class Games(commands.Cog):
 
        	name = ""
         try:
-            if ctx.author.nick is None:
-                name = f'{ctx.author}'
-                name = name[:(len(name)-5)]
+            if get_name(d) is not '':
+                name = get_name(d)
             else:
-                name = ctx.author.nick
+                if ctx.author.nick is None:
+                    name = f'{ctx.author}'
+                    name = name[:(len(name)-5)]
+                else:
+                    name = ctx.author.nick
         except:
             name = f'{ctx.author}'
             name = name[:(len(name)-5)]
