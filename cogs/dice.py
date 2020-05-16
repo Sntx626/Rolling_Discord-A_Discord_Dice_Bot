@@ -101,7 +101,7 @@ class Games(commands.Cog):
 
        	name = ""
         try:
-            if get_name(d) is '':
+            if get_name(input) is '':
                 if ctx.author.nick is None:
                     name = f'{ctx.author}'
                     name = name[:(len(name)-5)]
@@ -113,7 +113,7 @@ class Games(commands.Cog):
             name = f'{ctx.author}'
             name = name[:(len(name)-5)]
 
-        name = get_name(d)
+        #name = get_name(input)
 
         dice = input.split(',')
 
