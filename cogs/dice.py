@@ -11,7 +11,7 @@ import tools
 
 def get_throws(dice): # returns the number of times the set is thrown
     try:
-        pattern = re.compile(r'?^(\d{0,})x')
+        pattern = re.compile(r'.^?(\d{0,})x')
         matches = pattern.finditer(dice)
         out = []
         for match in matches:
