@@ -101,14 +101,14 @@ class Games(commands.Cog):
 
        	name = ""
         try:
-            if get_name(d) is not '':
-                name = get_name(d)
-            else:
+            if get_name(d) is '':
                 if ctx.author.nick is None:
                     name = f'{ctx.author}'
                     name = name[:(len(name)-5)]
                 else:
                     name = ctx.author.nick
+            else:
+                name = get_name(d)
         except:
             name = f'{ctx.author}'
             name = name[:(len(name)-5)]
