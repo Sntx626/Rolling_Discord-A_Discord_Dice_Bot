@@ -108,12 +108,10 @@ class Games(commands.Cog):
                 else:
                     name = ctx.author.nick
             else:
-                name = get_name(d)
+                name = get_name(input)
         except:
             name = f'{ctx.author}'
             name = name[:(len(name)-5)]
-
-        name = get_name(input)
 
         dice = input.split(',')
 
