@@ -113,7 +113,7 @@ class Games(commands.Cog):
             name = f'{ctx.author}'
             name = name[:(len(name)-5)]
 
-        #name = get_name(input)
+        name = get_name(input)
 
         dice = input.split(',')
 
