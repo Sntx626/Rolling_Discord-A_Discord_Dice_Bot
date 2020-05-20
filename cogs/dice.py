@@ -95,7 +95,7 @@ class Games(commands.Cog):
 
     ##### commands #####
 
-    @commands.command()
+    @commands.command(aliases=['oll','rll','rol','rolll','rooll','rool','d','rroll','rrooll'])
     async def roll(self, ctx, *, input="2x 1d20+ 13, 1d8+5 + 2d6"):
         tools.print_on_command_call(ctx.author, 'roll', f'{input}')
 
