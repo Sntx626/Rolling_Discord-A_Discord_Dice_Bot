@@ -2,5 +2,6 @@
   "client secret": "",
   "command prefix": "+",
   "logging enabled": false,
+  "roll aliases":["oll","rll","rol","rolll","rooll","rool","d","rroll","rrooll"],
   "results suffix": ""
 }
