@@ -6,6 +6,7 @@ import re
 
 with open("config.json") as f:
     command_prefix = json.load(f)["command prefix"]
+    roll_aliases = json.load(f)["roll aliases"]
 
 import tools
 
@@ -92,12 +93,10 @@ class Games(commands.Cog):
 
     def __init__(self, client):
         self.client = client
-        with open("config.json") as f:
-            self.roll_aliases = json.load(f)["roll aliases"]
 
     ##### commands #####
 
-    @commands.command(aliases=self.roll_aliases)
+    @commands.command(aliases=roll_aliases)
     async def roll(self, ctx, *, input="2x 1d20+ 13, 1d8+5 + 2d6"):
         tools.print_on_command_call(ctx.author, 'roll', f'{input}')
 
