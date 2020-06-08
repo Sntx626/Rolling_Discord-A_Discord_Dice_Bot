@@ -102,7 +102,7 @@ class Games(commands.Cog):
 
        	name = ""
         try:
-            if get_name(input) is '':
+            if get_name(input) == '':
                 if ctx.author.nick is None:
                     name = f'{ctx.author}'
                     name = name[:(len(name)-5)]
