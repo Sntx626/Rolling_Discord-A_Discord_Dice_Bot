@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+import datetime
 import random
 import json
 import re
@@ -126,8 +127,8 @@ class Dice(commands.Cog):
 
     ##### commands #####
 
-    @commands.command(aliases=["oll","rll","rol","rolll","rooll","rool","d","rroll","rrooll"])
-    async def roll(self, ctx, *, input="2x 1d20+ 13, 1d8+5 + 2d6"):
+    @commands.command(aliases=config["roll aliases"])
+    async def roll(self, ctx, *, input="2x 3d20"):
         print_on_command_call(ctx.author, 'roll', f'{input}')
 
        	name = ""
@@ -144,77 +145,49 @@ class Dice(commands.Cog):
             name = f'{ctx.author}'
             name = name[:(len(name)-5)]
 
-        dice = input.split(',')
+        d = input.strip()
+        #print("dice:", d)
 
-        dice_r = []
-        for d in dice:
-            d = d.strip()
-            #print("dice:", d)
-
-            g_throws = get_throws(d) # number
-            #print(f"get_throws({d}):{g_throws}")
-            g_dice = get_dice(d) # list
-            #print(f"get_dice({d}):{g_dice}")
-            g_eyes = get_eyes(d) # list
-            #print(f"get_eyes({d}):{g_eyes}")
-            g_mod = get_mod(d) # list
-            #print(f"get_mod({d}):{g_mod}")
-            try:
-                pass # check needed values
-            except:
-                embed = discord.Embed(
-                    title = 'Error',
-                    description = f"At least one of your Dice doesn't fit the Syntax, please refer to '{command_prefix}info'.",
-                    colour = discord.Colour.red()
-                )
-                embed.set_author(name=f'{name}', icon_url=f'{ctx.author.avatar_url}')
-                await ctx.send(embed=embed)
-                print_bot(f"Error: At least one of the Dice doesn't fit the Syntax", name, 'roll', input)
-                return
-
-            d_r = []
-            for i in range(g_throws):
-                d_r.append(throw_dice(g_dice, g_eyes, g_mod))
-            dice_r.append(d_r)
-
-
-        if len(dice_r) == 1:
-            data = ''
-            for d in dice_r[0]:
-                data += d[0] + '\n'
-            sum = 0
-            for v in dice_r[0]:
-                sum += v[1]
+        g_throws = get_throws(d) # number
+        #print(f"get_throws({d}):{g_throws}")
+        g_dice = get_dice(d) # list
+        #print(f"get_dice({d}):{g_dice}")
+        g_eyes = get_eyes(d) # list
+        #print(f"get_eyes({d}):{g_eyes}")
+        g_mod = get_mod(d) # list
+        #print(f"get_mod({d}):{g_mod}")
+        try:
+            pass # check needed values
+        except:
             embed = discord.Embed(
-                title = '',
-                description = f'{data}= {sum}',
-                colour = discord.Colour.blue()
+                title = 'Error',
+                description = f"At least one of your Dice doesn't fit the Syntax, please refer to '{command_prefix}info'.",
+                colour = discord.Colour.red()
             )
             embed.set_author(name=f'{name}', icon_url=f'{ctx.author.avatar_url}')
-
             await ctx.send(embed=embed)
-            print_bot(f"Dice thrown!", name, 'roll', input)
-        else:
-            embed = discord.Embed(
-                description = 'Rolled:',
-                colour = discord.Colour.blue()
-            )
-            embed.set_author(name=f'{name}', icon_url=f'{ctx.author.avatar_url}')
+            print_bot(f"Error: At least one of the Dice doesn't fit the Syntax", name, 'roll', input)
+            return
 
-            for i in range(len(dice_r)):
-                data = ''
-                for d in range(len(dice_r[i])):
-                    if d < len(dice_r[i])-1:
-                        data += dice_r[i][d][0] + ',\n'
-                    else:
-                        data += dice_r[i][d][0]
-                sum = 0
-                for v in dice_r[i]:
-                        sum += v[1]
-                embed.add_field(name=f"Throw number {i+1}:", value=f"{data}\n= {sum}", inline=False)
+        d_r = []
+        for i in range(g_throws):
+            d_r.append(throw_dice(g_dice, g_eyes, g_mod))
 
-            await ctx.send(embed=embed)
-            print_bot(f'Dice thrown!', name, 'roll', input)
+        data = ''
+        for d in d_r:
+            data += d[0] + '\n'
+        sum = 0
+        for v in d_r:
+            sum += v[1]
+        embed = discord.Embed(
+            title = '',
+            description = f'{data}= {sum}',
+            colour = discord.Colour.blue()
+        )
+        embed.set_author(name=f'{name}', icon_url=f'{ctx.author.avatar_url}')
+
+        await ctx.send(embed=embed)
+        print_bot(f"Dice thrown!", name, 'roll', input)
 
 ##### finalize and run #####
 
