@@ -4,11 +4,41 @@ import random
 import json
 import re
 
+# Tools:
+
 with open("config.json") as f:
-    command_prefix = json.load(f)["command prefix"]
+    config = json.load(f)
+    command_prefix = config["command prefix"]
+    name_suffix = config["results suffix"]
     #roll_aliases = json.load(f)["roll aliases"]
 
-import tools
+if config["logging enabled"]:
+    with open("logs/results_"+ name_suffix +".json") as f:
+        results = json.load(f)
+
+def print_on_command_call(ctx_author, command_name, input):
+    print(f"\n{ctx_author} '{command_prefix}{command_name} {input}':")
+
+def print_bot(output, ctx_author, command_name, input):
+    print(output)
+    if config["logging enabled"]:
+        add_results_entry(f"\n{ctx_author} '{command_prefix}{command_name} {input}':", output)
+
+def add_results_entry(input, output):
+    with open("logs/results_"+name_suffix+".json") as f:
+        data = json.load(f)
+
+    result = {
+    "input":input,
+    "output":output,
+    "timestamp":datetime.datetime.now().strftime("%c")
+    }
+
+    data.append(result)
+    with open("logs/results_"+name_suffix+".json", 'w') as f:
+        json.dump(data, f, indent=2)
+
+#### Dice methods:
 
 def get_throws(dice): # returns the number of times the set is thrown
     try:
@@ -87,7 +117,7 @@ def throw_dice(dice, eyes, mod): # returns a string as a result
         out += f'{data}/{eyes[d]}' + tab #+ f' {mod[d]}'
     return [out, sum] # return result string
 
-class Games(commands.Cog):
+class Dice(commands.Cog):
 
     ##### initalization #####
 
@@ -98,7 +128,7 @@ class Games(commands.Cog):
 
     @commands.command(aliases=["oll","rll","rol","rolll","rooll","rool","d","rroll","rrooll"])
     async def roll(self, ctx, *, input="2x 1d20+ 13, 1d8+5 + 2d6"):
-        tools.print_on_command_call(ctx.author, 'roll', f'{input}')
+        print_on_command_call(ctx.author, 'roll', f'{input}')
 
        	name = ""
         try:
@@ -139,7 +169,7 @@ class Games(commands.Cog):
                 )
                 embed.set_author(name=f'{name}', icon_url=f'{ctx.author.avatar_url}')
                 await ctx.send(embed=embed)
-                tools.print_bot(f"Error: At least one of the Dice doesn't fit the Syntax", name, 'roll', input)
+                print_bot(f"Error: At least one of the Dice doesn't fit the Syntax", name, 'roll', input)
                 return
 
             d_r = []
@@ -163,7 +193,7 @@ class Games(commands.Cog):
             embed.set_author(name=f'{name}', icon_url=f'{ctx.author.avatar_url}')
 
             await ctx.send(embed=embed)
-            tools.print_bot(f"Dice thrown!", name, 'roll', input)
+            print_bot(f"Dice thrown!", name, 'roll', input)
         else:
             embed = discord.Embed(
                 description = 'Rolled:',
@@ -184,9 +214,9 @@ class Games(commands.Cog):
                 embed.add_field(name=f"Throw number {i+1}:", value=f"{data}\n= {sum}", inline=False)
 
             await ctx.send(embed=embed)
-            tools.print_bot(f'Dice thrown!', name, 'roll', input)
+            print_bot(f'Dice thrown!', name, 'roll', input)
 
 ##### finalize and run #####
 
 def setup(client):
-    client.add_cog(Games(client))
+    client.add_cog(Dice(client))
