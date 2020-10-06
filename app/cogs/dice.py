@@ -9,21 +9,26 @@ import re
 
 with open("config.json") as f:
     config = json.load(f)
-    command_prefix = config["command prefix"]
-    name_suffix = config["results suffix"]
+    command_prefix = config["bot_prefix"]
+    #name_suffix = config["results suffix"]
     #roll_aliases = json.load(f)["roll aliases"]
 
+'''
 if config["logging enabled"]:
     with open("logs/results_"+ name_suffix +".json") as f:
         results = json.load(f)
-
+'''
 def print_on_command_call(ctx_author, command_name, input):
-    print(f"\n{ctx_author} '{command_prefix}{command_name} {input}':")
+    pass
+    #print(f"\n{ctx_author} '{command_prefix}{command_name} {input}':")
 
 def print_bot(output, ctx_author, command_name, input):
+    pass
+    '''
     print(output)
     if config["logging enabled"]:
         add_results_entry(f"\n{ctx_author} '{command_prefix}{command_name} {input}':", output)
+
 
 def add_results_entry(input, output):
     with open("logs/results_"+name_suffix+".json") as f:
@@ -38,7 +43,7 @@ def add_results_entry(input, output):
     data.append(result)
     with open("logs/results_"+name_suffix+".json", 'w') as f:
         json.dump(data, f, indent=2)
-
+'''
 #### Dice methods:
 
 def get_throws(dice): # returns the number of times the set is thrown
@@ -127,7 +132,7 @@ class Dice(commands.Cog):
 
     ##### commands #####
 
-    @commands.command(aliases=config["roll aliases"])
+    @commands.command()#aliases=config["roll aliases"])
     async def roll(self, ctx, *, input="2x 3d20"):
         print_on_command_call(ctx.author, 'roll', f'{input}')
 
