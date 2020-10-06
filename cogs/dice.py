@@ -1,9 +1,20 @@
+import datetime
+import json
+import random
+
 import discord
 from discord.ext import commands
 
-import tools
+with open("config.json") as f:
+    command_prefix = json.load(f)["bot_prefix"]
 
-import random
+def print_on_command_call(ctx_author, command_name, input):
+    #print(f"\n{ctx_author} '{command_prefix}{command_name} {input}':")
+    pass
+
+def print_bot(output, ctx_author, command_name, input):
+    #print(output)
+    pass
 
 class Games(commands.Cog):
 
@@ -16,7 +27,7 @@ class Games(commands.Cog):
 
     @commands.command()
     async def roll(self, ctx, d='d20', number='1', name=''):
-        tools.print_on_command_call(ctx.author, 'roll', f'{d} {number} {name}')
+        print_on_command_call(ctx.author, 'roll', f'{d} {number} {name}')
 
         if name == '':
             try:
@@ -42,7 +53,7 @@ class Games(commands.Cog):
             )
             embed.set_author(name=f'{name}', icon_url=f'{ctx.author.avatar_url}')
             await ctx.send(embed=embed)
-            tools.print_bot(f"'roll d<number> <number of dice> <title name>' wasn't passed, instead '{d}' was inputted (all values are optional).", ctx.author, 'roll', f'{d} {number} {name}')
+            print_bot(f"'roll d<number> <number of dice> <title name>' wasn't passed, instead '{d}' was inputted (all values are optional).", ctx.author, 'roll', f'{d} {number} {name}')
         elif number == 1:
             for i in range(number):
                 if d.startswith('d') and d[1:].isdigit():
@@ -56,7 +67,7 @@ class Games(commands.Cog):
                         )
                         embed.set_author(name=f'{name}', icon_url=f'{ctx.author.avatar_url}')
                         await ctx.send(embed=embed)
-                        tools.print_bot(f'Rolled {r}/{int(d)}!', ctx.author, 'roll', f'{d} {number} {name}')
+                        print_bot(f'Rolled {r}/{int(d)}!', ctx.author, 'roll', f'{d} {number} {name}')
                     else:
                         embed = discord.Embed(
                             title = 'Error',
@@ -65,7 +76,7 @@ class Games(commands.Cog):
                         )
                         embed.set_author(name=f'{name}', icon_url=f'{ctx.author.avatar_url}')
                         await ctx.send(embed=embed)
-                        tools.print_bot(f"'roll d<number> <number of dice> <title name>' wasn't passed, instead '{d}' was inputted (all values are optional).", ctx.author, 'roll', f'{d} {number} {name}')
+                        print_bot(f"'roll d<number> <number of dice> <title name>' wasn't passed, instead '{d}' was inputted (all values are optional).", ctx.author, 'roll', f'{d} {number} {name}')
                 elif d.isdigit():
                     if int(d) > 0:
                         r = random.randint(1, int(d))
@@ -75,7 +86,7 @@ class Games(commands.Cog):
                         )
                         embed.set_author(name=f'{name}', icon_url=f'{ctx.author.avatar_url}')
                         await ctx.send(embed=embed)
-                        tools.print_bot(f'Rolled {r}/{int(d)}!', ctx.author, 'roll', f'{d} {number} {name}')
+                        print_bot(f'Rolled {r}/{int(d)}!', ctx.author, 'roll', f'{d} {number} {name}')
                     else:
                         embed = discord.Embed(
                             title = 'Error',
@@ -84,7 +95,7 @@ class Games(commands.Cog):
                         )
                         embed.set_author(name=f'{name}', icon_url=f'{ctx.author.avatar_url}')
                         await ctx.send(embed=embed)
-                        tools.print_bot(f"'roll d<number> <number of dice> <title name>' wasn't passed, instead '{d}' was inputted (all values are optional).", ctx.author, 'roll', f'{d} {number} {name}')
+                        print_bot(f"'roll d<number> <number of dice> <title name>' wasn't passed, instead '{d}' was inputted (all values are optional).", ctx.author, 'roll', f'{d} {number} {name}')
                 else:
                     embed = discord.Embed(
                         title = 'Error',
@@ -93,7 +104,7 @@ class Games(commands.Cog):
                     )
                     embed.set_author(name=f'{name}', icon_url=f'{ctx.author.avatar_url}')
                     await ctx.send(embed=embed)
-                    tools.print_bot(f"'roll d<number> <number of dice> <title name>' wasn't passed, instead '{d}' was inputted (all values are optional).", ctx.author, 'roll', f'{d} {number} {name}')
+                    print_bot(f"'roll d<number> <number of dice> <title name>' wasn't passed, instead '{d}' was inputted (all values are optional).", ctx.author, 'roll', f'{d} {number} {name}')
         elif number <= 25:
             if d.startswith('d') and d[1:].isdigit():
                 d = d[1:]
@@ -109,7 +120,7 @@ class Games(commands.Cog):
                         data.append(r)
                     embed.set_author(name=f'{name}', icon_url=f'{ctx.author.avatar_url}')
                     await ctx.send(embed=embed)
-                    tools.print_bot(f'Rolled {data}\nout of {d} respectively.', ctx.author, 'roll', f'{d} {number} {name}')
+                    print_bot(f'Rolled {data}\nout of {d} respectively.', ctx.author, 'roll', f'{d} {number} {name}')
                 else:
                     embed = discord.Embed(
                         title = 'Error',
@@ -118,7 +129,7 @@ class Games(commands.Cog):
                     )
                     embed.set_author(name=f'{name}', icon_url=f'{ctx.author.avatar_url}')
                     await ctx.send(embed=embed)
-                    tools.print_bot(f"'roll d<number> <number of dice> <title name>' wasn't passed, instead '{d}' was inputted (all values are optional).", ctx.author, 'roll', f'{d} {number} {name}')
+                    print_bot(f"'roll d<number> <number of dice> <title name>' wasn't passed, instead '{d}' was inputted (all values are optional).", ctx.author, 'roll', f'{d} {number} {name}')
             elif d.isdigit():
                 if int(d) > 0:
                     r = random.randint(1, int(d))
@@ -133,7 +144,7 @@ class Games(commands.Cog):
                         data.append(r)
                     embed.set_author(name=f'{name}', icon_url=f'{ctx.author.avatar_url}')
                     await ctx.send(embed=embed)
-                    tools.print_bot(f'Rolled {data}\nout of {d} respectively.', ctx.author, 'roll', f'{d} {number} {name}')
+                    print_bot(f'Rolled {data}\nout of {d} respectively.', ctx.author, 'roll', f'{d} {number} {name}')
                 else:
                     embed = discord.Embed(
                         title = 'Error',
@@ -142,7 +153,7 @@ class Games(commands.Cog):
                     )
                     embed.set_author(name=f'{name}', icon_url=f'{ctx.author.avatar_url}')
                     await ctx.send(embed=embed)
-                    tools.print_bot(f"'roll d<number> <number of dice> <title name>' wasn't passed, instead '{d}' was inputted (all values are optional).", ctx.author, 'roll', f'{d} {number} {name}')
+                    print_bot(f"'roll d<number> <number of dice> <title name>' wasn't passed, instead '{d}' was inputted (all values are optional).", ctx.author, 'roll', f'{d} {number} {name}')
             else:
                 embed = discord.Embed(
                     title = 'Error',
@@ -150,7 +161,7 @@ class Games(commands.Cog):
                 )
                 embed.set_author(name=f'{name}', icon_url=f'{ctx.author.avatar_url}')
                 await ctx.send(embed=embed)
-                tools.print_bot(f"'roll d<number> <number of dice> <title name>' wasn't passed, instead '{d}' was inputted (all values are optional).", ctx.author, 'roll', f'{d} {number} {name}')
+                print_bot(f"'roll d<number> <number of dice> <title name>' wasn't passed, instead '{d}' was inputted (all values are optional).", ctx.author, 'roll', f'{d} {number} {name}')
         else:
             if d.startswith('d') and d[1:].isdigit():
                 d = d[1:]
@@ -169,7 +180,7 @@ class Games(commands.Cog):
                     embed.add_field(name=f'results (sorted)', value=f'{data}\nout of {d} respectively.', inline=False)
                     embed.set_author(name=f'{name}', icon_url=f'{ctx.author.avatar_url}')
                     await ctx.send(embed=embed)
-                    tools.print_bot(f'Rolled {datac}\nand\n{data}\nout of {d} respectively.', ctx.author, 'roll', f'{d} {number} {name}')
+                    print_bot(f'Rolled {datac}\nand\n{data}\nout of {d} respectively.', ctx.author, 'roll', f'{d} {number} {name}')
                 else:
                     embed = discord.Embed(
                         title = 'Error',
@@ -178,7 +189,7 @@ class Games(commands.Cog):
                     )
                     embed.set_author(name=f'{name}', icon_url=f'{ctx.author.avatar_url}')
                     await ctx.send(embed=embed)
-                    tools.print_bot(f"'roll d<number> <number of dice> <title name>' wasn't passed, instead '{d}' was inputted (all values are optional).", ctx.author, 'roll', f'{d} {number} {name}')
+                    print_bot(f"'roll d<number> <number of dice> <title name>' wasn't passed, instead '{d}' was inputted (all values are optional).", ctx.author, 'roll', f'{d} {number} {name}')
             elif d.isdigit():
                 if int(d) > 0:
                     r = random.randint(1, int(d))
@@ -196,7 +207,7 @@ class Games(commands.Cog):
                     embed.add_field(name=f'results (sorted)', value=f'{data}\nout of {d} respectively.', inline=False)
                     embed.set_author(name=f'{name}', icon_url=f'{ctx.author.avatar_url}')
                     await ctx.send(embed=embed)
-                    tools.print_bot(f'Rolled {datac}\nand\n{data}\nout of {d} respectively.', ctx.author, 'roll', f'{d} {number} {name}')
+                    print_bot(f'Rolled {datac}\nand\n{data}\nout of {d} respectively.', ctx.author, 'roll', f'{d} {number} {name}')
                 else:
                     embed = discord.Embed(
                         title = 'Error',
@@ -205,7 +216,7 @@ class Games(commands.Cog):
                     )
                     embed.set_author(name=f'{name}', icon_url=f'{ctx.author.avatar_url}')
                     await ctx.send(embed=embed)
-                    tools.print_bot(f"'roll d<number> <number of dice> <title name>' wasn't passed, instead '{d}' was inputted (all values are optional).", ctx.author, 'roll', f'{d} {number} {name}')
+                    print_bot(f"'roll d<number> <number of dice> <title name>' wasn't passed, instead '{d}' was inputted (all values are optional).", ctx.author, 'roll', f'{d} {number} {name}')
             else:
                 embed = discord.Embed(
                     title = 'Error',
@@ -213,7 +224,7 @@ class Games(commands.Cog):
                 )
                 embed.set_author(name=f'{name}', icon_url=f'{ctx.author.avatar_url}')
                 await ctx.send(embed=embed)
-                tools.print_bot(f"'roll d<number> <number of dice> <title name>' wasn't passed, instead '{d}' was inputted (all values are optional).", ctx.author, 'roll', f'{d} {number} {name}')
+                print_bot(f"'roll d<number> <number of dice> <title name>' wasn't passed, instead '{d}' was inputted (all values are optional).", ctx.author, 'roll', f'{d} {number} {name}')
 
 ##### finalize and run #####
 
