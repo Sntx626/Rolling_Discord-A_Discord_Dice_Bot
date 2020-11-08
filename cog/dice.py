@@ -103,6 +103,7 @@ class Dice(commands.Cog):
 
     @commands.command(aliases=config["roll aliases"])
     async def roll(self, ctx, *, input="2x 3d20"):
+        await self.client.deleteInvoking(ctx.message)
         print_on_command_call(ctx.author, 'roll', f'{input}')
        	name = ""
         try:
