@@ -139,7 +139,7 @@ class Dice(commands.Cog):
                 colour = discord.Colour.red()
             )
             embed.set_author(name=f'{name}', icon_url=f'{ctx.author.avatar_url}')
-            await ctx.send(embed=embed)
+            await self.client.send(embed=embed)
             print_bot(f"Error: At least one of the Dice doesn't fit the Syntax", name, 'roll', input)
             return
 
@@ -160,7 +160,7 @@ class Dice(commands.Cog):
         )
         embed.set_author(name=f'{name}', icon_url=f'{ctx.author.avatar_url}')
 
-        await ctx.send(embed=embed)
+        await self.client.send(embed=embed)
         print_bot(f"Dice thrown!", name, 'roll', input)
 
 ##### finalize and run #####
